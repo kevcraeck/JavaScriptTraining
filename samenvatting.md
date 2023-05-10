@@ -2,6 +2,16 @@
 test<br/>
 
 # Destructing
+```
+let person = {
+  firstName: "John",
+  lastName: "Smith",
+  age: 25
+};
+
+let { firstName, lastName, age } = person;
+```
+*console.log(age); // 25*
 
 # Regex
 
