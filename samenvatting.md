@@ -13,7 +13,7 @@
 - parameters
 - mix & match: objecten binnen arrays binnen objecten
     - wordt er niet leesbaarder van
-- for-loop for (let {x, y} = products) {...}
+- for-loop for (let { x, y } = products) {...}
 
 
 ## Basics

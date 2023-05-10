@@ -1,111 +1,114 @@
-"use strict";
+// "use strict";
 
-class Phone {
-  constructor(brand, type) {
-    this.brand = brand;
-    this.type = type;
-    this.appDrawer = new AppDrawer();
-    this.appDrawer.addApps(new AddressBook());
-    this.appDrawer.addApps(new Calculator());
-  }
-}
+import { Contact } from "./contact.js";
+import {Phone} from "./phone.js";
 
-class AppDrawer {
-  constructor() {
-    this.apps = []; //collection of Apps
-  }
+// class Phone {
+//   constructor(brand, type) {
+//     this.brand = brand;
+//     this.type = type;
+//     this.appDrawer = new AppDrawer();
+//     this.appDrawer.addApps(new AddressBook());
+//     this.appDrawer.addApps(new Calculator());
+//   }
+// }
 
-  addApps(app) {
-    if (app instanceof App) {
-      this.apps.push(app);
-    } else {
-      throw `ERROR: ${app} is not an app`;
-    }
-  }
+// class AppDrawer {
+//   constructor() {
+//     this.apps = []; //collection of Apps
+//   }
 
-  get calculator() {
-    for (let app of this.apps) {
-      if (app instanceof Calculator) {
-        return app;
-      }
-    }
-  }
+//   addApps(app) {
+//     if (app instanceof App) {
+//       this.apps.push(app);
+//     } else {
+//       throw `ERROR: ${app} is not an app`;
+//     }
+//   }
 
-  get addressBook() {
-    for (let app of this.apps) {
-      if (app instanceof AddressBook) {
-        return app;
-      }
-    }
-  }
-}
+//   get calculator() {
+//     for (let app of this.apps) {
+//       if (app instanceof Calculator) {
+//         return app;
+//       }
+//     }
+//   }
 
-class App {
-  constructor() {
-    if (new.target === App) {
-      throw new Error("Abstract class");
-    } else {
-      this.name = name;
-    }
-  }
+//   get addressBook() {
+//     for (let app of this.apps) {
+//       if (app instanceof AddressBook) {
+//         return app;
+//       }
+//     }
+//   }
+// }
 
-  start() {
-    console.log(`The name of the app: ${this.name}`);
-  }
-}
+// class App {
+//   constructor() {
+//     if (new.target === App) {
+//       throw new Error("Abstract class");
+//     } else {
+//       this.name = name;
+//     }
+//   }
 
-class Calculator extends App {
-  constructor() {
-    super("Calculator");
-  }
+//   start() {
+//     console.log(`The name of the app: ${this.name}`);
+//   }
+// }
 
-  add(...x) {
-    return x.reduce((prev, curr) => prev + curr);
-  }
+// class Calculator extends App {
+//   constructor() {
+//     super("Calculator");
+//   }
 
-  multiply(...x) {
-    return x.reduce((prev, curr) => prev * curr);
-  }
-  divide(...x) {
-    return x.reduce((prev, curr) => prev / curr);
-  }
-  subtract(...x) {
-    return x.reduce((prev, curr) => prev - curr);
-  }
-}
+//   add(...x) {
+//     return x.reduce((prev, curr) => prev + curr);
+//   }
 
-class AddressBook extends App {
-  constructor() {
-    super();
-    this.contacts = [];
-  }
+//   multiply(...x) {
+//     return x.reduce((prev, curr) => prev * curr);
+//   }
+//   divide(...x) {
+//     return x.reduce((prev, curr) => prev / curr);
+//   }
+//   subtract(...x) {
+//     return x.reduce((prev, curr) => prev - curr);
+//   }
+// }
 
-  addcontact(contact) {
-    if (contact instanceof Contact) {
-      this.contacts.push(contact);
-    } else {
-      throw new Error(`ERROR: ${contact} is not a contact`);
-    }
-  }
+// class AddressBook extends App {
+//   constructor() {
+//     super();
+//     this.contacts = [];
+//   }
 
-  where(isNewContact) {
-    let listOfContacts = [];
-    for (let c of this.contacts) {
-      if (isNewContact(c)) {
-        listOfContacts.push(c);
-      }
-    }
-    return listOfContacts;
-  }
-}
+//   addcontact(contact) {
+//     if (contact instanceof Contact) {
+//       this.contacts.push(contact);
+//     } else {
+//       throw new Error(`ERROR: ${contact} is not a contact`);
+//     }
+//   }
 
-class Contact {
-  constructor(firstName, surName, phoneNumber) {
-    this.firstName = firstName;
-    this.surName = surName;
-    this.phoneNumber = phoneNumber;
-  }
-}
+//   where(predicate) { // standaard predicate = functie aanroepen die true/false teruggeeft
+//     let listOfContacts = [];
+//     for (let c of this.contacts) {
+//       if (predicate(c)) {
+//         listOfContacts.push(c);
+//       }
+//     }
+//     return listOfContacts;
+//   }
+// }
+
+// class Contact {
+//   constructor(firstName, surName, phoneNumber) {
+//     this.firstName = firstName;
+//     this.surName = surName;
+//     this.phoneNumber = phoneNumber;
+//   }
+// }
 
 let phone = new Phone("Samsung", "S22");
 console.log(phone.brand, phone.type);
