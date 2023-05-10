@@ -1,7 +1,22 @@
 # Classes
-test<br/>
+- Niet helemaal hetzelfde als in andere OO-talen
+- Manieren om objecten aan te maken
+- Objecten nog steeds flexibel
+- abstract - new.target
+- private - #iets
+- extends andere class
+- static<br/>
 
 # Destructing
+- waarden uit objecten/arrays halen
+- returnwaarde : let [ eerste, tweede] = doe ();
+- parameters
+- mix & match: objecten binnen arrays binnen objecten
+    - wordt er niet leesbaarder van
+- for-loop for (let {x, y} = products) {...}
+
+
+## Basics
 ```
 let person = {
   firstName: "John",
@@ -10,8 +25,8 @@ let person = {
 };
 
 let { firstName, lastName, age } = person;
-```
 *console.log(age); // 25*
+```
 
 # Regex
 
