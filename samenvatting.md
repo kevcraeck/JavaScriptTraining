@@ -1,4 +1,45 @@
+# Functions
+
+### Function declaration
+
+```
+function test() {
+  console.log("hoi");
+}
+
+test(); // hoi
+test(14, 28); // hoi
+test(9999); // hoi
+
+function test2(p1, p2) {
+  console.log("hoi met params:", p1, p2);
+}
+
+test2(); // hoi met params: undefined undefined
+test2(14, 28); // hoi met params: 14 28
+test2(9999); // hoi met params: 9999 undefined
+```
+
+### Function expression
+
+```
+const func = function () {
+	console.log('hoi func');
+};
+func(); // hoi func
+```
+
+### Arrow functions (lambda's)
+
+```
+const arrow = (foo, bar, ...rest) => {
+  console.log("hoi arrow", foo, bar, rest);
+};
+arrow(4, 8, 15, 16, 23, 42); // hoi arrow 4 8 [15, 16, 23, 42]
+```
+
 # Classes
+
 - Niet helemaal hetzelfde als in andere OO-talen
 - Manieren om objecten aan te maken
 - Objecten nog steeds flexibel
@@ -8,15 +49,16 @@
 - static<br/>
 
 # Destructing
+
 - waarden uit objecten/arrays halen
 - returnwaarde : let [ eerste, tweede] = doe ();
 - parameters
 - mix & match: objecten binnen arrays binnen objecten
-    - wordt er niet leesbaarder van
+  - wordt er niet leesbaarder van
 - for-loop for (let { x, y } = products) {...}
 
+### Basics
 
-## Basics
 ```
 let person = {
   firstName: "John",
@@ -36,8 +78,10 @@ De `^......$` net na en voor de `/` staat voor begin en einde van wat je wilt ch
 
 # Advanced functions
 
-## this
+### this
+
 `this` - wijst in globale functies naar:<br/>
+
 - globale functies als geen use strict
 - undefined als wel strict <br/>
 
@@ -45,53 +89,60 @@ De `^......$` net na en voor de `/` staat voor begin en einde van wat je wilt ch
 `this` is wat wispelturig<br/>
 met een `() => {}` blijft gewoon wjzen naar waar hij daarvoor staat
 
-## closures
- - function voor isolated scope
- - state meegeven
+### closures
 
- ```
- let sort = function() {
-  let sorters = {
-    string: function(a, b) {
-      if(a < b>) {
-        return -1;
-      }
-      else if (a > b) {
-        return 1;
-      }
-      return = 0
-    },
-    number: function(a, b) {
-      return a - b;
-    }
-  }
-  return function(list) {
-    console.log(list);
-    return list.sort(sorters[typeof list[0]]);
-  }
- }();
- console.log('sorting numbers: ', sort([4, 9, 15, -9, 3, 6]));
- console.log(sort(['hoi', 'doei', 'blabla']));
- ```
+- function voor isolated scope
+- state meegeven
 
-## IIFE - Immediately Ivoked Function Expression
- ```
- !function() {
-  doeIets();
- }();
- ```
- `!` mag ook andere operators zijn<br/>
+```
+let sort = function() {
+ let sorters = {
+   string: function(a, b) {
+     if(a < b>) {
+       return -1;
+     }
+     else if (a > b) {
+       return 1;
+     }
+     return = 0
+   },
+   number: function(a, b) {
+     return a - b;
+   }
+ }
+ return function(list) {
+   console.log(list);
+   return list.sort(sorters[typeof list[0]]);
+ }
+}();
+console.log('sorting numbers: ', sort([4, 9, 15, -9, 3, 6]));
+console.log(sort(['hoi', 'doei', 'blabla']));
+```
 
- ## IIAFE (arrow) <br/>
- ```
+### IIFE - Immediately Ivoked Function Expression
+
+```
+!function() {
+ doeIets();
+}();
+```
+
+`!` mag ook andere operators zijn<br/>
+
+### IIAFE (arrow) <br/>
+
+```
 (() => {
-  doeIets();
+ doeIets();
 })();
- ```
- `()` moet rondom de IIAFE gezet worden<br/>
+```
 
-# prototype
- - ovenervingsmechanisme in JS<br/>
+`()` moet rondom de IIAFE gezet worden<br/>
+
+# Prototype
+
+- ovenervingsmechanisme in JS<br/>
+
 ```
 function LivingBeing() {
   this.speak = function () {
@@ -108,7 +159,8 @@ const yael = new Human();
 yael.speak();
 ```
 
-## Extension methods
+### Extension methods
+
 ```
 Date.prototype.toFancyString = function() { // moet met functions (geen arrow)
   return `${this.getDate()}-${this.getMonth()}-${this.getFullYear()}`;
@@ -120,8 +172,10 @@ console.log(nu.toFancyString()); // 11-4-2023
 ```
 
 # Symbols
+
 - zijn uniek<br/>
 - primitive (primitief datatype - string, number, boolean ....)<br/>
+
 ```
 const sym = Symbol();
 const sym2 = Symbol();
@@ -138,6 +192,7 @@ let obj = {
 console.log(obj); // {x: 24, y: 'hoi', Symbol(): 'bla'}
 console.log(obj[sym];) // bla
 ```
+
 ```
 const sym = Symbol.for('qwerty'); // get or create: create
 const sym2 = Symbol.for('qwerty'); // get
@@ -145,8 +200,10 @@ console.log(sym === sym2); //true
 ```
 
 # Sets and Maps
+
 - Set() => unieke waarden<br/>
 - Map() => unieke keys - key/value pairs<br/>
+
 ```
 let lijstje = new Set();
 lijstje.add(4);
@@ -166,11 +223,13 @@ map.set("bla", "test");
 
 console.log(map); // Map(3) {'hoi' => 14, {…} => 4, 'bla' => 'test'}
 ```
+
 `WeakSet` en `WeakMap`: deze houden geen referentie vast naar hun object values (gebruik bij Dom-elementen)<br/>
 
 # Iterators and generators
 
-## Iterators
+### Iterators
+
 - hulpmiddel om over array heen te itereren<br/>
 - positionele metadata<br/>
 - IEnumerable<> Iterator<br/>
@@ -201,7 +260,8 @@ for (let consumable of jp) {
 }
 ```
 
-## Generators
+### Generators
+
 - Iterator - met controle over de control flow
 
 ```
