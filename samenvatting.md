@@ -37,13 +37,13 @@ De `^......$` net na en voor de `/` staat voor begin en einde van wat je wilt ch
 # Advanced functions
 
 ## this
-this - wijst in globale functies naar:<br/>
+`this` - wijst in globale functies naar:<br/>
 - globale functies als geen use strict
 - undefined als wel strict <br/>
 
-this in een functie van een object wijst netjes de eigenaar van de functie<br/>
-this is wat wispelturig<br/>
-met een () => {} blijft gewoon wjzen naar waar hij daarvoor staat
+`this` in een functie van een object wijst netjes de eigenaar van de functie<br/>
+`this` is wat wispelturig<br/>
+met een `() => {}` blijft gewoon wjzen naar waar hij daarvoor staat
 
 ## closures
  - function voor isolated scope
