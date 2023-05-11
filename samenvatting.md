@@ -167,3 +167,56 @@ map.set("bla", "test");
 console.log(map); // Map(3) {'hoi' => 14, {…} => 4, 'bla' => 'test'}
 ```
 `WeakSet` en `WeakMap`: deze houden geen referentie vast naar hun object values (gebruik bij Dom-elementen)<br/>
+
+# Iterators and generators
+
+## Iterators
+- hulpmiddel om over array heen te itereren<br/>
+- positionele metadata<br/>
+- IEnumerable<> Iterator<br/>
+- protocol - pattern<br/>
+
+```
+let jp = {
+  name: "jp",
+  favoriteChips: ["HamKaas", "Bugles", "Doritos"],
+  favoriteDrinks: ["Cola", "Sprite", "Fanta"],
+
+  [Symbol.iterator]() {
+    let favo = [...this.favoriteChips, ...this.favoriteDrinks];
+    let index = 0;
+    return {
+      next() {
+        return {
+          value: favo[index++],
+          done: index > favo.length,
+        };
+      },
+    };
+  },
+};
+
+for (let consumable of jp) {
+  console.log("consumable: ", consumable);
+}
+```
+
+## Generators
+- Iterator - met controle over de control flow
+
+```
+function* gen() {
+  console.log("eerste");
+  yield 4;
+  console.log("tweede");
+  yield 8;
+  console.log("derde");
+  yield 15;
+  console.log("vierde");
+  yield 16;
+}
+
+for (let item of gen()) {
+  console.log("gen'ed item: ", item);
+}
+```
