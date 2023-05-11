@@ -10,7 +10,7 @@ export class AppController {
   //   return this.appService.getHello();
   // }
 
-  @Get('http://127.0.0.1:5500/dommanipulatie/index.html')
+  @Get()
   getTodos(): string {
     return this.appService.getTodos();
   }
