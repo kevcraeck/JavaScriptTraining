@@ -118,3 +118,52 @@ let nu = new Date();
 console.log(nu); // Thu May 11 2023 11:59:40 GMT+0200 (Midden-Europese zomertijd)
 console.log(nu.toFancyString()); // 11-4-2023
 ```
+
+# Symbols
+- zijn uniek<br/>
+- primitive (primitief datatype - string, number, boolean ....)<br/>
+```
+const sym = Symbol();
+const sym2 = Symbol();
+
+console.log(sym); // Symbol()
+console.log(sym === sym2); // false
+console.log(sym == sym2); // false
+
+let obj = {
+  x: 24,
+  y: 'hoi',
+  [sym]: 'bla',
+};
+console.log(obj); // {x: 24, y: 'hoi', Symbol(): 'bla'}
+console.log(obj[sym];) // bla
+```
+```
+const sym = Symbol.for('qwerty'); // get or create: create
+const sym2 = Symbol.for('qwerty'); // get
+console.log(sym === sym2); //true
+```
+
+# Sets and Maps
+- Set() => unieke waarden<br/>
+- Map() => unieke keys - key/value pairs<br/>
+```
+let lijstje = new Set();
+lijstje.add(4);
+lijstje.add(8);
+lijstje.add(15);
+lijstje.add(16);
+lijstje.add(16);
+lijstje.add(23);
+
+console.log(lijstje); // Set(5) {4, 8, 15, 16, 23}
+
+let map = new Map();
+map.set("hoi", 4);
+map.set({ x: 24 }, 4);
+map.set("hoi", 14); // dubbel dus niet meegenomen
+map.set("bla", "test");
+
+console.log(map); // Map(3) {'hoi' => 14, {…} => 4, 'bla' => 'test'}
+```
+`WeakSet` en `WeakMap`: deze houden geen referentie vast naar hun object values (gebruik bij Dom-elementen)<br/>
