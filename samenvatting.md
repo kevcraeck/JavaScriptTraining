@@ -82,12 +82,12 @@ De `^......$` net na en voor de `/` staat voor begin en einde van wat je wilt ch
 
 `this` - wijst in globale functies naar:<br/>
 
-- globale functies als geen use strict
+- `globalThis` \ `window` als geen use strict
 - undefined als wel strict <br/>
 
 `this` in een functie van een object wijst netjes de eigenaar van de functie<br/>
 `this` is wat wispelturig<br/>
-met een `() => {}` blijft gewoon wjzen naar waar hij daarvoor staat
+met een `() => {}` blijft gewoon wijzen naar waar de `this` daarvoor al naar wees
 
 ### closures
 
@@ -141,7 +141,8 @@ console.log(sort(['hoi', 'doei', 'blabla']));
 
 # Prototype
 
-- ovenervingsmechanisme in JS<br/>
+- ovenervings mechanisme in JS<br/>
+- Kan runtime wijzigen<br/>
 
 ```
 function LivingBeing() {
@@ -162,7 +163,7 @@ yael.speak();
 ### Extension methods
 
 ```
-Date.prototype.toFancyString = function() { // moet met functions (geen arrow)
+Date.prototype.toFancyString = function() { // moet met functions (geen arrow ivm gebruik `this`)
   return `${this.getDate()}-${this.getMonth()}-${this.getFullYear()}`;
 };
 
@@ -173,7 +174,7 @@ console.log(nu.toFancyString()); // 11-4-2023
 
 # Symbols
 
-- zijn uniek<br/>
+- zijn uniek (pointers / adressering)<br/>
 - primitive (primitief datatype - string, number, boolean ....)<br/>
 
 ```
@@ -280,3 +281,87 @@ for (let item of gen()) {
   console.log("gen'ed item: ", item);
 }
 ```
+
+# Advanced Objects
+
+### Static functions
+- `Object.keys`<br/>
+- `Object.is`<br/>
+  - `+0` en `-0` zijn in dit geval niet gelijk<br/>
+  - `Nan` vergelijken met `NaN` zijn wel gelijk<br/>
+- `Object.assign` - voegt de variablen toe <br/>
+```
+let target = { x: 24};
+let comb1 = { hoi: 'iets', test: 548 }
+let comb2 = { hoi: 'iets anders', fling: 9.41 }
+
+Object.assign(target, comn1, comb2); // {x: 24, hoi: 'iets anders', test: 548, fling: 9.41 }
+```
+
+### Reflect
+- Reflect is statisch object net als `JSON` of `Math`<br/>
+- verzorgt methods voor interceptable JavaScript operations<br/>
+
+### Proxy
+- "soort van onderschepping"<br/>
+```
+let proxyTarget = { x: 24, y: "hoi" };
+let proxy = new Proxy(proxyTarget, {
+  get(target, prop) {
+    console.log("get obj:", target, prop); //get obj: {x: 24, y: 'hoi'} x
+    return target[prop];
+  },
+  set(target, prop, value) {
+    console.log("set obj:", target, prop, value); // set obj: {x: 24, y: 'hoi'} x 2345678
+    target[prop] = value;
+    return true; // deze moet erbij ivm 'use strict' 
+  },
+});
+
+console.log("get x: ", proxy.x); // get x:  24
+proxy.x = 2345678;
+console.log("get x na setten:", proxy.x); //get x na setten: 2345678
+console.log("get y:", proxy.y); //get y: hoi
+```
+
+### Encapsulation
+- configuratie interactie<br/>
+  - wrtiable: false<br/>
+  - `Object/Reflect.seal` `freeze` `preventExtensions`<br/>
+- private: `#field`<br/>
+  ```
+  class Convention {
+    #ding = 'hoi';
+  }
+  ```
+- coventie<br/>
+  - gebruik `_` voor je variabelen
+  ```
+  class Convention {
+    _ding = 'hoi';
+  }
+  ```
+- getters/setters<br/>
+  ```
+  class Convention {
+    #ding = 'hoi';
+
+    get ding() {
+      return this.#ding;
+    }
+
+    set ding(value) {
+      if(value.length > 10) {
+        throw new Error('Te lang ding')
+      }
+      this.#ding = value
+    }
+  }
+  const g = new Convention();
+  console.log(g.ding); // hoi
+  g.ding = 'qwerty';
+  console.log(g.ding); // qwerty
+  ```
+
+  ### Garbage Collection
+  - `FinalizetionRegistry()` - zodra een obj opgeruimd wordt dan wordt er iets geregistreerd<br/>
