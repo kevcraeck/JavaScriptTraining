@@ -363,5 +363,75 @@ console.log("get y:", proxy.y); //get y: hoi
   console.log(g.ding); // qwerty
   ```
 
-  ### Garbage Collection
-  - `FinalizetionRegistry()` - zodra een obj opgeruimd wordt dan wordt er iets geregistreerd<br/>
+### Garbage Collection
+ - `FinalizetionRegistry()` - zodra een obj opgeruimd wordt dan wordt er iets geregistreerd<br/>
+
+ # Promises
+ - een belofte<br/>
+   - er komt een waarde <-- `resolve`<br/>
+   - er volgt een error <-- `reject`<br/>
+ - wrapper om een of ander `async` proces<br/>
+ ```
+ let prom = new Promise((resolve, reject) => {
+   console.log("Promise starten");
+   setTimeout(() => {
+     resolve(42);
+     reject("Because reasons"); // deze alleen wanneer resolve() niet lukt
+   }, 2000);
+ });
+
+ prom
+   .then((result) => console.log("Promise result:", result)) // Promise result: 42
+   .catch((err) => console.error("Oh nee!", err));
+ ```
+ - promises zijn EAGER en draaien dus al zonder dat ze aangeroepen worden<br/>
+ - gebruik van `.then` meerdere keren is chainen!<br/>
+ ```
+ fetch('bla.json').then(x => x.json()).then(data => {})
+ ```
+
+### voorbeeld meerdere promises
+```
+let prom1 = new Promise((res, rej) => setTimeout(() => {
+    console.log('Promise1'); 
+    rej('prom1')
+}, 2000));
+let prom2 = new Promise(res => setTimeout(() => {
+    console.log('Promise2'); 
+    res('prom2')
+}, 3500));
+let prom3 = new Promise(res => setTimeout(() => {
+    console.log('Promise3'); 
+    res('prom3')
+}, 1000));
+
+Promise.allSettled([prom1, prom2, prom3]).then(results => {
+    console.log('results:', results)
+})
+```
+
+# Testing
+- end-to-end testen (browser geautomatiseerd)<br/>
+  - playwright<br/>
+  - cypress<br/>
+  - testcafe<br/>
+- deployment<br/>
+  - storybook<br/>
+  - browserstack<br/>
+  - chromatic<br/>
+- unittesten & integratietesten<br/>
+  - test-runners<br/>
+    - mocha<br/>
+    - karma<br/>
+    - jest<br/>
+    - vitest<br/>
+  - test frameworks<br/>
+    - jasmine<br/>
+    - jest<br/>
+    - vitest<br/>
+  - assetions<br/>
+    - chai<br/>
+  - mocking<br/>
+    - sinon<br/>
+  - mutation testing<br/>
+    - stryker<br/>
